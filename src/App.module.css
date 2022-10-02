@@ -1,0 +1,29 @@
+/* .form_signup{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+.input_form{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  height: 50px;
+  width: 500px;
+}
+.input_form input{
+  width: 100%;
+  height: 30px;
+}
+.form_signup button{
+  height: 40px;
+  width: 200px;
+  outline: none;
+  border: none;
+  background-color: rgb(60, 60, 218);
+  color: #fff;
+  border-radius: 10px 0px 10px 0px;
+  cursor: pointer;
+} */
