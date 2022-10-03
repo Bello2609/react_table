@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { tableContext } from '../../socket';
 import uuid from "react-uuid";
-// import classes from './Table.module.css';
+import classes from './Table.module.css';
 
 
 const Table  = ()=>{
@@ -17,7 +17,8 @@ const rowClick = (e)=>{
         //iterate through rows
         //rows would be accessed using the "row" variable assigned in the for loop
         for (var j = 0, col; col = row.cells[j]; j++) {
-            console.log(e.target.id);
+            col[j].style.background = "red"
+            // console.log(col[]);
             // if(e.target.id === index){
             //     setIsClick(!isClick);
             // }
@@ -42,7 +43,7 @@ const generateId = ()=>{
                         <tr key={rr} id="row">
                             {
                                 cols.map((cc)=>(
-                                    <td id={generateId()} key={cc} onClick={rowClick}>{cc}</td>
+                                    <td id={generateId()} className={classes.notselected} onClick={rowClick}>{cc}</td>
                                 ))
                             }
                         </tr>
@@ -52,6 +53,7 @@ const generateId = ()=>{
                 </tbody>
                 
             </table>
+            <button className={classes.button}>merge</button>
         </>
     )
 }
