@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { tableContext } from "../../socket";
-// import classes from './Table.module.css';
+import classes from "./Table.module.css";
 
 const Table = () => {
   const [selectedCells, setSelectedCells] = useState([]);
@@ -44,6 +44,7 @@ const Table = () => {
             </tr>
           ))}
         </tbody>
+        <button className={classes.button}>merge</button>
       </table>
     </>
   );
