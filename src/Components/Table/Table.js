@@ -1,59 +1,51 @@
-import React, { useState, useContext } from 'react';
-import { tableContext } from '../../socket';
-import uuid from "react-uuid";
+import React, { useState, useContext } from "react";
+import { tableContext } from "../../socket";
 // import classes from './Table.module.css';
 
+const Table = () => {
+  const [selectedCells, setSelectedCells] = useState([]);
+  const { tableData } = useContext(tableContext);
 
-const Table  = ()=>{
-    const [ isClick, setIsClick ] = useState("false");
-const { row, cols } = useContext(tableContext);
-// const [ _, _, cols ] = useContext(tableContext);
+  function selectCell(id, rowIndex, columnIndex) {
+    setSelectedCells((prev) => {
+      const cellIndex = prev.findIndex((cell) => cell.id === id);
+      const cellExistinSelectedList = cellIndex !== -1;
+      if (cellExistinSelectedList) {
+        return [...prev.filter((cell) => cell.id !== id)];
+      } else {
+        return [
+          ...prev,
+          {
+            id,
+            rowIndex,
+            columnIndex,
+          },
+        ];
+      }
+    });
+  }
 
-console.log(cols);
-
-const rowClick = (e)=>{
-    const myRow = document.getElementById("table");
-    for (var i = 0, row; row = myRow.rows[i]; i++) {
-        //iterate through rows
-        //rows would be accessed using the "row" variable assigned in the for loop
-        for (var j = 0, col; col = row.cells[j]; j++) {
-            console.log(e.target.id);
-            // if(e.target.id === index){
-            //     setIsClick(!isClick);
-            // }
-           
-            
-          //iterate through columns
-          //columns would be accessed using the "col" variable assigned in the for loop
-        }  
-     }
-}
-const id = uuid();
-const generateId = ()=>{
-    return uuid();
-}
-    return(
-        <>
-            <table id="table" border="1" style={{width: "100%"}}>
-                <tbody>
-                {
-                    row.map(rr=>(
-                        
-                        <tr key={rr} id="row">
-                            {
-                                cols.map((cc)=>(
-                                    <td id={generateId()} key={cc} onClick={rowClick}>{cc}</td>
-                                ))
-                            }
-                        </tr>
-                       
-                    ))
-                }
-                </tbody>
-                
-            </table>
-        </>
-    )
-}
+  return (
+    <>
+      <table id="table" border="1" style={{ width: "100%" }}>
+        <tbody>
+          {tableData.map((row, rowIndex) => (
+            <tr key={rowIndex} id="row">
+              {row.map(({ id }, columnIndex) => (
+                <td
+                  id={id}
+                  key={columnIndex}
+                  onClick={() => selectCell(id, rowIndex, columnIndex)}
+                  className={`${selectedCells.some((cell) => cell.id === id) ? "selected" : ""}`}
+                >
+                  {columnIndex}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </>
+  );
+};
 export default Table;
-
